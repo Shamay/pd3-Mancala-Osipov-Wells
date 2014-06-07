@@ -1,14 +1,18 @@
 import java.util.*;
 import java.io.*;
 public class Rows{
+    
     private class Pit{
         int seeds;
         Pit next;
 	Pit prev;
-        public Pit(int s){
+	boolean side; //true = L, false = R
+
+        public Pit(int s, boolean side){
             seeds = s;
             next = null;
 	    prev = null;
+	    this.side = side;
         }
         public int getSeeds(){
             return seeds;
@@ -22,11 +26,25 @@ public class Rows{
         public void setSeeds(int s){
             seeds = s;
         }
+	public void addSeed(){
+	    seeds++;
+	}
         public void setNext(Pit n){
             next = n;
         }
 	public void setPrev(Pit n){
 	    prev = n;
+	}
+	public int empty(){
+	    int temp = seeds;
+	    seeds = 0;
+	    return temp;
+	}
+	public boolean getSide(){
+	    return side;
+	}
+	public void setSide(boolean bool){
+	    side = bool;
 	}
     }
 
@@ -34,24 +52,28 @@ public class Rows{
     Pit L,R;
 
     public Rows(){
-        L = new Pit(4);
+        L = new Pit(4,true);
         R = L;
         for(int x = 0;x<LENGTH;x++){
-            R.setNext(new Pit(4));
+            R.setNext(new Pit(4, true));
+	    R.getNext().setPrev(R);
             R = R.getNext();
         }
+	R.setSide(false);
         Pit temp = R;
         for(int x = 0;x<LENGTH-1;x++){
-            temp.setNext(new Pit(4));
+            temp.setNext(new Pit(4, false));
+	    temp.getNext().setPrev(temp);
             temp = temp.getNext();
         }
         temp.setNext(L);
+	L.setPrev(temp);
     }
     public String toString(){
         String r = "";
         Pit p = L;
         for(int x = 0;x<LENGTH*2;x++){
-            r += ", " + p.getSeeds();
+            r += p.getSeeds() + ""+ p.getSide() + ", ";
             p = p.getNext();
         }
         return r;
@@ -68,11 +90,7 @@ public class Rows{
                 t = t.getNext();
         return t;
     }
-    /*    public void sow(Pit p){                                                                                                                                                                                                                                                      
-	  int s = p.getSeeds();
-	  p.setSeeds(0);                                                                                                                                                                                                                                                             	  while(s>0){                                                                                                                                                                                                                                                                
-	  p = p.getNext();                                                                                                                                                                                                                                                       
-    */
+
 
     public static void main(String[] args){
 	Rows instance = new Rows();
