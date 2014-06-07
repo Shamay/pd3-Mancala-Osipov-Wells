@@ -6,3 +6,7 @@
 6/4: Shamay and Malcolm
 - decided to follow the rules of the variant Oware, which has a few differences from Mancala.
 - changed the fundamental data storage algorithm to a double linked list
+
+6/6: Shamay and Malcolm
+- added a Game class that controls the sowing and capturing as well as the turns of the two players.
+- within the Game class is the Player class, which keeps track of score.
