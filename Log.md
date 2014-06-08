@@ -10,3 +10,7 @@
 6/6: Shamay and Malcolm
 - added a Game class that controls the sowing and capturing as well as the turns of the two players.
 - within the Game class is the Player class, which keeps track of score.
+
+6/7: Shamay
+- added the background design
+- beginning work with processing graphics
