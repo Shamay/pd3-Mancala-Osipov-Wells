@@ -16,7 +16,7 @@
 - beginning work with processing graphics
 
 6/8: Malcolm
-- studying source material
+- studying source material (there are a large number of mancala variants; in the interest of being able to write a decent AI without oversimplifying strategy to the point of imbalance, we chose Oware, a version played in West Africa and the Caribbean)
 
 6/8: Shamay
 - started on Processing Driver class used for graphics
