@@ -14,3 +14,10 @@
 6/7: Shamay
 - added the background design
 - beginning work with processing graphics
+
+6/8: Malcolm
+- studying source material
+
+6/8: Shamay
+- started on Processing Driver class used for graphics
+- created a Seed class reliant on the pit it is in to determine coordinates
