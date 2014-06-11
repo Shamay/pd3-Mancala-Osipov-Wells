@@ -28,9 +28,23 @@ void setup() {
 
 void draw() {
   background(bg);
-  for(Seed s: seeds){
-   s.display();
-  }   
+  //for(Seed s: seeds){
+  // s.display();
+  //}   
+  int oldxcor = (int) seeds.get(0).xcor;
+  int oldycor = (int) seeds.get(0).ycor;
+  seeds.get(0).nextPit();
+  int newxcor = (int) seeds.get(0).xcor;
+  int newycor = (int) seeds.get(0).ycor;
+  
+  int slope = (newycor - oldycor) / (newxcor - oldxcor);
+  while(newycor - oldycor > 2 && newxcor - oldxcor > 2){
+   seeds.get(0).xcor++;
+   seeds.get(0).ycor+=slope;
+   delay(50);
+   seeds.get(0).display();
+  }
+  
 }
 
 class Seed {
@@ -69,9 +83,12 @@ class Seed {
     return pit; 
   }
   
-  void setPit(int pit){
-    this.pit = pit;
-    resetCors();
+  void nextPit(){
+    if(pit < 12)
+    this.pit++;
+    else
+    this.pit = 1;
+    resetCors(); 
   }
   
   void resetCors(){

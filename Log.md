@@ -21,3 +21,13 @@
 6/8: Shamay
 - started on Processing Driver class used for graphics
 - created a Seed class reliant on the pit it is in to determine coordinates
+
+6/9: Malcolm and Shamay
+- restructured the game class and made player a standalone
+- began thinking about AI
+
+6/10: Shamay
+- edited the background image to match the Oware board
+- edited the processing code to match the new background & pits
+
+6/11:
