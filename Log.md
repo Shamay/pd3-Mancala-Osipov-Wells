@@ -26,8 +26,9 @@
 - restructured the game class and made player a standalone
 - began thinking about AI
 
-6/10: Shamay
+6/10: Shamay (Note: pushed on 6/11)
 - edited the background image to match the Oware board
 - edited the processing code to match the new background & pits
+- working on animation
 
 6/11:
