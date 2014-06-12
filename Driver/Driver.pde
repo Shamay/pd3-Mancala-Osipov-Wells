@@ -1,5 +1,7 @@
 PImage bg, bSeed, ySeed, pSeed, oSeed;
 ArrayList<Seed> seeds;
+Game instance;
+
 void setup() {
   size(1200, 550);
 
@@ -8,6 +10,8 @@ void setup() {
   ySeed = loadImage("yellowSeed.png");
   pSeed = loadImage("pinkSeed.png");
   oSeed = loadImage("orangeSeed.png");
+
+  intance = new Game();
   
   seeds = new ArrayList<Seed>();
   for(int x = 0 ; x < 4 ; x++){
@@ -28,23 +32,12 @@ void setup() {
 
 void draw() {
   background(bg);
-  //for(Seed s: seeds){
-  // s.display();
-  //}   
-  int oldxcor = (int) seeds.get(0).xcor;
-  int oldycor = (int) seeds.get(0).ycor;
-  seeds.get(0).nextPit();
-  int newxcor = (int) seeds.get(0).xcor;
-  int newycor = (int) seeds.get(0).ycor;
-  
-  int slope = (newycor - oldycor) / (newxcor - oldxcor);
-  while(newycor - oldycor > 2 && newxcor - oldxcor > 2){
-   seeds.get(0).xcor++;
-   seeds.get(0).ycor+=slope;
-   delay(50);
-   seeds.get(0).display();
-  }
-  
+  for(Seed s: seeds){
+   if(mousePressed){
+    seeds.get(0).nextPit(); 
+   }
+    s.display();
+  }  
 }
 
 class Seed {
