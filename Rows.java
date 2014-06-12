@@ -23,6 +23,13 @@ public class Rows{
         temp.setNext(L);
 	L.setPrev(temp);
     }
+    public Rows(Pit L){
+	this.L = L;
+	R = L;
+	for(int x;x<LENGTH;x++){
+	    R = R.getNext();
+	}
+    }
     public String toString(){
         String r = "";
         Pit p = L;
