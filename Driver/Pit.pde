@@ -5,42 +5,45 @@ public class Pit{
     boolean side; //true = L, false = R
     
     public Pit(int s, boolean side){
-  seeds = s;
-  next = null;
-  prev = null;
-  this.side = side;
+      seeds = s;
+      next = null;
+      prev = null;
+      this.side = side;
     }
     public int getSeeds(){
-  return seeds;
+      return seeds;
     }
     public Pit getNext(){
-  return next;
+      return next;
     }
     public Pit getPrev(){
-  return prev;
+      return prev;
     }
     public void setSeeds(int s){
-  seeds = s;
+      seeds = s;
     }
     public void addSeed(){
-  seeds++;
+      seeds++;
+    }
+    public void subSeed(){
+       seeds--; 
     }
     public void setNext(Pit n){
-  next = n;
+      next = n;
     }
     public void setPrev(Pit n){
-  prev = n;
+      prev = n;
     }
     public int empty(){
-  int temp = seeds;
-  seeds = 0;
-  return temp;
+      int temp = seeds;
+      seeds = 0;
+      return temp;
     }
     public boolean getSide(){
-  return side;
+      return side;
     }
     public void setSide(boolean bool){
-  side = bool;
+      side = bool;
     }
 }
 

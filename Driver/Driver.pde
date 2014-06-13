@@ -1,6 +1,7 @@
 PImage bg, bSeed, ySeed, pSeed, oSeed;
 ArrayList<Seed> seeds;
-//Game instance;
+Game instance;
+Rows rows;
 
 void setup() {
   size(842, 550);
@@ -11,7 +12,8 @@ void setup() {
   pSeed = loadImage("pinkSeed.png");
   oSeed = loadImage("orangeSeed.png");
 
-  //instance = new Game();
+  instance = new Game();
+  rows = instance.getRows();
   
   seeds = new ArrayList<Seed>();
   for(int x = 0 ; x < 4 ; x++){
@@ -76,9 +78,18 @@ class Seed {
   
   void nextPit(){
     if(pit < 12)
-    this.pit++;
+      if(pit < 7){
+        rows.getL(pit).subSeed();
+        rows.getL(pit).getNext().addSeed();
+      }else if(pit < 13){
+        rows.getR(pit-6).subSeed();
+        rows.getR(pit-6).getNext().addSeed();
+      }
+      this.pit++;
     else
-    this.pit = 1;
+      rows.getR(6).subSeed();
+      rows.getL(1).addSeed(); // should I use getNext
+      this.pit = 1;
     resetCors(); 
   }
   
