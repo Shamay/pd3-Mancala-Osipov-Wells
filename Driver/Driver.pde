@@ -1,9 +1,9 @@
 PImage bg, bSeed, ySeed, pSeed, oSeed;
 ArrayList<Seed> seeds;
-Game instance;
+//Game instance;
 
 void setup() {
-  size(1200, 550);
+  size(842, 550);
 
   bg = loadImage("OwareBoard.jpg");
   bSeed = loadImage("blueSeed.png");
@@ -11,7 +11,7 @@ void setup() {
   pSeed = loadImage("pinkSeed.png");
   oSeed = loadImage("orangeSeed.png");
 
-  intance = new Game();
+  //instance = new Game();
   
   seeds = new ArrayList<Seed>();
   for(int x = 0 ; x < 4 ; x++){
@@ -33,9 +33,7 @@ void setup() {
 void draw() {
   background(bg);
   for(Seed s: seeds){
-   if(mousePressed){
-    seeds.get(0).nextPit(); 
-   }
+    //s.nextPit();
     s.display();
   }  
 }
@@ -51,10 +49,10 @@ class Seed {
    this.pit = pit;
    
    if(pit <= 6){
-     xcor = ((pit - 1) * 140) + 200 + random(62);
+     xcor = ((pit - 1) * 140) + 21 + random(62);
      ycor = 300 + random(55);
     }else{
-     xcor = ((pit - 7) * -140) + 900 + random(62);
+     xcor = ((pit - 7) * -140) + 721 + random(62);
      ycor = 160 + random(55);
     }
    
@@ -86,10 +84,10 @@ class Seed {
   
   void resetCors(){
     if(pit <= 6){
-     xcor = ((pit - 1) * 140) + 200 + random(62);
+     xcor = ((pit - 1) * 140) + 21 + random(62);
      ycor = 300 + random(55);
     }else{
-     xcor = ((pit - 7) * -140) + 900 + random(62);
+     xcor = ((pit - 7) * -140) + 721 + random(62);
      ycor = 160 + random(55);
     }
   }

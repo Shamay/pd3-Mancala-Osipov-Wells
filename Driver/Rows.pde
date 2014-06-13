@@ -10,25 +10,25 @@ public class Rows{
         R = L;
         for(int x = 0;x<LENGTH;x++){
             R.setNext(new Pit(4, true));
-	    R.getNext().setPrev(R);
+      R.getNext().setPrev(R);
             R = R.getNext();
         }
-	R.setSide(false);
+  R.setSide(false);
         Pit temp = R;
         for(int x = 0;x<LENGTH-1;x++){
             temp.setNext(new Pit(4, false));
-	    temp.getNext().setPrev(temp);
+      temp.getNext().setPrev(temp);
             temp = temp.getNext();
         }
         temp.setNext(L);
-	L.setPrev(temp);
+  L.setPrev(temp);
     }
     public Rows(Pit L){
-	this.L = L;
-	R = L;
-	for(int x;x<LENGTH;x++){
-	    R = R.getNext();
-	}
+  this.L = L;
+  R = L;
+  for(int x=0;x<LENGTH;x++){
+      R = R.getNext();
+  }
     }
     public String toString(){
         String r = "";
@@ -52,9 +52,4 @@ public class Rows{
         return t;
     }
 
-
-    public static void main(String[] args){
-	Rows instance = new Rows();
-	System.out.println(instance);
-    }
 }
