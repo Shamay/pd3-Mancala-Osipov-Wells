@@ -2,6 +2,7 @@ PImage bg, bSeed, ySeed, pSeed, oSeed;
 ArrayList<Seed> seeds;
 Game instance;
 Rows rows;
+Player player1,player2
 
 void setup() {
   size(842, 550);
@@ -14,6 +15,8 @@ void setup() {
 
   instance = new Game();
   rows = instance.getRows();
+  player1 = instance.getPlayer1();
+  player2 = instance.getPlayer2();
   
   seeds = new ArrayList<Seed>();
   for(int x = 0 ; x < 4 ; x++){
@@ -38,6 +41,21 @@ void draw() {
     //s.nextPit();
     s.display();
   }  
+}
+
+void mouseReleased(){
+  if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){    
+    if(mouseY > 280 && mouseY < 402){
+     println( 1+ mouseX / 140);
+    }else if(mouseY > 140 && mouseY < 264){
+     println( 12 - (mouseX / 140));
+    }
+    else{
+     println("Y: " + mouseY); 
+    }
+  }else{
+     println("X: " + mouseX); 
+  }
 }
 
 class Seed {
@@ -77,7 +95,7 @@ class Seed {
   }
   
   void nextPit(){
-    if(pit < 12)
+    if(pit < 12){
       if(pit < 7){
         rows.getL(pit).subSeed();
         rows.getL(pit).getNext().addSeed();
@@ -86,10 +104,12 @@ class Seed {
         rows.getR(pit-6).getNext().addSeed();
       }
       this.pit++;
-    else
+    }
+    else{
       rows.getR(6).subSeed();
-      rows.getL(1).addSeed(); // should I use getNext
+      rows.getL(1).addSeed();
       this.pit = 1;
+    }
     resetCors(); 
   }
   
