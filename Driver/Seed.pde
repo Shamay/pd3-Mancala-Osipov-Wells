@@ -2,10 +2,10 @@ public class Seed {
   int pit; //(1-12)
   PImage col;
   float xcor,ycor;
-  boolean inPlay;
+  //boolean inPlay;
   
   Seed(int pit){
-   inPlay = true;
+   //inPlay = true;
    this.pit = pit;
    
    if(pit <= 6){

@@ -1,12 +1,17 @@
 public class Player{
-    
+    private ArrayList<Seed> seeds;
     private int score;
     private boolean side; //true = L, false = R
     
-    public Player(boolean side){
+    public Player(boolean side, ArrayList<Seed> seeds){
       score=0;
       this.side = side;
+      this.seeds = seeds;
     }
+    
+    //public ArrayList<Seed> getSeedList(){
+    //  return seeds; 
+    //}
     
     public boolean getSide(){
       return side;
@@ -23,9 +28,9 @@ public class Player{
       score += num;
     }
     
-    public void sow(Pit p){         
+    public void sow(int pit){     // changed from Pit input to int    
       //sowing
-      int s = p.getSeeds();
+      /*int s = p.getSeeds();
       p.setSeeds(0);
       Pit exclude = p;
       while(s>0){                                        
@@ -34,13 +39,24 @@ public class Player{
           p.addSeed();
           s--;    
         }                                               
-      }
+      }*/
+      int count = 1;
+       for(Seed s: seeds){
+         if(s.getPit() == pit){
+          for(int x = 0; x < count; x++){
+            s.nextPit();
+          }
+          for(int x = -1; x < count / 12;x++){
+            count++;
+          }
+         }
+       }
   
     //capturing
-    while(p.getSide() != side && (p.getPrev().getSeeds() == 2 || p.getPrev().getSeeds() == 3)){
-        p = p.getPrev();
-        score += p.empty();
-    }
+    //while(p.getSide() != side && (p.getPrev().getSeeds() == 2 || p.getPrev().getSeeds() == 3)){
+    //    p = p.getPrev();
+    //    score += p.empty();
+    //}
   
   }
   

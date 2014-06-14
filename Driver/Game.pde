@@ -5,14 +5,37 @@ public class Game{
     
     private Player player1, player2;
     private Rows rows;
+    private ArrayList<Seed> seeds; // instantiates seedList 
     private boolean turn; // true = player1, false = player2
     
     public Game(){
-      player1 = new Player(true);
-      player2 = new Player(false);
+      seeds = new ArrayList<Seed>();
+      for(int x = 0 ; x < 4 ; x++){
+      seeds.add(new Seed(1));
+      seeds.add(new Seed(2));
+      seeds.add(new Seed(3));
+      seeds.add(new Seed(4));
+      seeds.add(new Seed(5));
+      seeds.add(new Seed(6));
+      seeds.add(new Seed(7));
+      seeds.add(new Seed(8));
+      seeds.add(new Seed(9));
+      seeds.add(new Seed(10));
+      seeds.add(new Seed(11));
+      seeds.add(new Seed(12));
+      } 
+      
+      player1 = new Player(true, seeds);
+      player2 = new Player(false, seeds);
       rows = new Rows();
       turn = true;
+      
+      
     }
+  
+    public ArrayList<Seed> getSeedList(){
+     return seeds;
+    } 
     
     public boolean validMove(int pit){
       if(turn)
