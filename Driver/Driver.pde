@@ -84,14 +84,14 @@ void mouseReleased(){
   if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){    
     if(mouseY > 280 && mouseY < 402){
       int pit = 1 + mouseX / 140;
-     if(instance.validMove(pit)){
+     if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
        instance.getCurrentPlayer().sow(rows.getPit(pit));
        instance.nextTurn();
      }
     }
     if(mouseY > 140 && mouseY < 264){
      int pit = 12 - (mouseX / 140);
-     if(instance.validMove(pit)){
+     if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
        instance.getCurrentPlayer().sow(rows.getPit(pit));
        instance.nextTurn();
      }

@@ -1,7 +1,7 @@
 public class Player{
     private int score;
     private boolean side; //true = L, false = R
-    priave boolean myWin; // keeps track of if the player won
+    private boolean myWin; // keeps track of if the player won
     
     public Player(boolean side){
       score=0;
@@ -45,7 +45,7 @@ public class Player{
         p = p.getPrev();
     }
     if(score > 24)
-      myWin == true;
+      myWin = true;
   
   }
  
