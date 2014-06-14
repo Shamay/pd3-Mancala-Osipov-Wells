@@ -2,10 +2,10 @@ public class Seed {
   int pit; //(1-12)
   PImage col;
   float xcor,ycor;
-  //boolean inPlay;
+  boolean inPlay;
   
   Seed(int pit){
-   //inPlay = true;
+   inPlay = true;
    this.pit = pit;
    
    if(pit <= 6){
@@ -27,7 +27,9 @@ public class Seed {
    }
   }
   void display(){
+    if(inPlay){
     image(col,xcor,ycor);
+    }
   }  
   
   int getPit(){
@@ -35,6 +37,7 @@ public class Seed {
   }
   
   void nextPit(){
+    if(inPlay){
     if(pit < 12){
       if(pit < 7){
         rows.getL(pit).subSeed();
@@ -51,6 +54,11 @@ public class Seed {
       this.pit = 1;
     }
     resetCors(); 
+    }
+  }
+  
+  void outPlay(){
+    inPlay = false;
   }
   
   void resetCors(){

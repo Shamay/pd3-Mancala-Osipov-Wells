@@ -40,23 +40,34 @@ public class Player{
           s--;    
         }                                               
       }*/
+      Pit p = rows.getPit(pit);
+      int pNum = pit;
+      
       int count = 1;
        for(Seed s: seeds){
          if(s.getPit() == pit){
           for(int x = 0; x < count; x++){
             s.nextPit();
           }
-          for(int x = -1; x < count / 12;x++){
+          for(int x = -1; x < count / 12;x++){ // fix function
             count++;
+            p = p.getNext();
+            pNum++;
           }
          }
        }
-  
+           
     //capturing
-    //while(p.getSide() != side && (p.getPrev().getSeeds() == 2 || p.getPrev().getSeeds() == 3)){
-    //    p = p.getPrev();
-    //    score += p.empty();
-    //}
+    while(p.getSide() != side && (p.getSeeds() == 2 || p.getSeeds() == 3)){        
+        score += p.empty();
+        for(Seed s: seeds){
+           if(s.getPit() == pNum){
+             s.outPlay();
+           }  
+        }
+        p = p.getPrev();
+        pNum--;
+    }
   
   }
   
