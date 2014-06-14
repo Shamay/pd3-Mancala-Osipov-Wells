@@ -37,3 +37,9 @@
 
 6/12: Shamay and Malcolm
 - consolidated everything to processing
+
+6/13:Shamay
+- added visual sowing
+- restructured classes to be less dependant on the Driver
+- sowing reworked
+- added visual pit count functionality
