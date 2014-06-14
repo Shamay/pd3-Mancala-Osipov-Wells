@@ -1,17 +1,12 @@
 public class Player{
-    private ArrayList<Seed> seeds;
     private int score;
     private boolean side; //true = L, false = R
+    priave boolean myWin; // keeps track of if the player won
     
-    public Player(boolean side, ArrayList<Seed> seeds){
+    public Player(boolean side){
       score=0;
       this.side = side;
-      this.seeds = seeds;
     }
-    
-    //public ArrayList<Seed> getSeedList(){
-    //  return seeds; 
-    //}
     
     public boolean getSide(){
       return side;
@@ -24,14 +19,17 @@ public class Player{
     public int getScore(){
       return score;
     }
-    public void setScore(int num){
+    public void addScore(int num){
       score += num;
     }
     
-    public void sow(int pit){     // changed from Pit input to int    
+    public boolean myWin(){
+       return myWin; 
+    }
+    
+    public void sow(Pit p){     // changed from Pit input to int    
       //sowing
-      /*int s = p.getSeeds();
-      p.setSeeds(0);
+      int s = p.empty();
       Pit exclude = p;
       while(s>0){                                        
         p = p.getNext();
@@ -39,38 +37,18 @@ public class Player{
           p.addSeed();
           s--;    
         }                                               
-      }*/
-      Pit p = rows.getPit(pit);
-      int pNum = pit;
-      
-      int count = 1;
-       for(Seed s: seeds){
-         if(s.getPit() == pit){
-          for(int x = 0; x < count; x++){
-            s.nextPit();
-          }
-          for(int x = -1; x < count / 12;x++){ // fix function
-            count++;
-            p = p.getNext();
-            pNum++;
-          }
-         }
-       }
+      }
            
     //capturing
-    while(p.getSide() != side && (p.getSeeds() == 2 || p.getSeeds() == 3)){        
+      while(p.getSide() != side && (p.getSeeds() == 2 || p.getSeeds() == 3)){        
         score += p.empty();
-        for(Seed s: seeds){
-           if(s.getPit() == pNum){
-             s.outPlay();
-           }  
-        }
         p = p.getPrev();
-        pNum--;
     }
+    if(score > 24)
+      myWin == true;
   
   }
-  
+ 
   
     
 }

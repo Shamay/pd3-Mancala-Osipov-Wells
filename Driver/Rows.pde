@@ -1,22 +1,23 @@
-import java.util.*;
-import java.io.*;
+// Container for the linked-list
+
 public class Rows{
     
     final int LENGTH = 6;
     Pit L,R;
 
     public Rows(){
-        L = new Pit(4,true);
+        L = new Pit(4,true,1);
         R = L;
         for(int x = 0;x<LENGTH;x++){
-            R.setNext(new Pit(4, true));
+            R.setNext(new Pit(4, true,2+x));
             R.getNext().setPrev(R);
             R = R.getNext();
         }
         R.setSide(false);
+        R.setNum(7);
         Pit temp = R;
         for(int x = 0;x<LENGTH-1;x++){
-            temp.setNext(new Pit(4, false));
+            temp.setNext(new Pit(4, false,8+x));
             temp.getNext().setPrev(temp);
             temp = temp.getNext();
         }
@@ -30,16 +31,6 @@ public class Rows{
       for(int x=0;x<LENGTH;x++){
       R = R.getNext();
       }
-    }
-    
-    public String toString(){
-        String r = "";
-        Pit p = L;
-        for(int x = 0;x<LENGTH*2;x++){
-            r += p.getSeeds() + ""+ p.getSide() + ", ";
-            p = p.getNext();
-        }
-        return r;
     }
     
     public Pit getL(int i){
@@ -58,7 +49,7 @@ public class Rows{
     
     public Pit getPit(int i){
         Pit t = L;
-            for(int x = 0;x<i;x++)
+            for(int x = 1;x<i;x++)
                 t = t.getNext();
         return t;
     }
