@@ -1,5 +1,6 @@
 PImage bg, bSeed, ySeed, pSeed, oSeed;
 ArrayList<Seed> seeds;
+PFont f; 
 Game instance;
 Rows rows;
 
@@ -30,13 +31,25 @@ void setup(){
     seeds.add(new Seed(11));
     seeds.add(new Seed(12));
   }
+  
+  f = createFont("Arial",16,true);
+ 
 }
 
 void draw() {
   background(bg);
   for(Seed s: seeds){
     s.display();
-  }  
+  }
+  
+  textFont(f,16);                 
+  fill(0);
+  for(int x = 1; x < 7; x++){                            
+    text(""+rows.getPit(x).getSeeds(), 65 + (140*(x-1)),435);  
+  }
+  for(int x = 7; x < 13; x++){
+    text(""+rows.getPit(x).getSeeds(), 765 - (140*(x-7)),115);
+  }
 }
 
 void mouseReleased(){
