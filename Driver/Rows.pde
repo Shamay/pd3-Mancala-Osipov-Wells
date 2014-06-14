@@ -55,5 +55,12 @@ public class Rows{
                 t = t.getNext();
         return t;
     }
+    
+    public Pit getPit(int i){
+        Pit t = L;
+            for(int x = 0;x<i;x++)
+                t = t.getNext();
+        return t;
+    }
 
 }

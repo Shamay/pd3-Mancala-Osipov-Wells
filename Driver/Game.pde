@@ -5,17 +5,31 @@ public class Game{
     
     private Player player1, player2;
     private Rows rows;
+    private boolean turn; // true = player1, false = player2
     
     public Game(){
       player1 = new Player(true);
       player2 = new Player(false);
       rows = new Rows();
+      turn = true;
+    }
+    
+    public boolean validMove(int pit){
+      if(turn)
+        return pit < 7 && pit > 0;
+      else
+        return pit < 13 && pit > 6;
     }
     
     public Player getPlayer1(){
       return player1;
     }
     public Player getPlayer2(){
+      return player2;
+    }
+    public Player getCurrentPlayer(){
+      if(turn)
+        return player1;
       return player2;
     }
     public void setPlayer1(Player player1){
@@ -29,5 +43,8 @@ public class Game{
     }
     public void setRows(Rows rows){
       this.rows = rows;
-    } 
+    }
+   public void nextTurn(){
+      turn=!turn;
+   } 
 }
