@@ -3,6 +3,10 @@ public class Player{
     private boolean side; //true = L, false = R
     private boolean myWin; // keeps track of if the player won
     
+    public Player(){
+      score = 0;
+      side = true;
+    }
     public Player(boolean side){
       score=0;
       this.side = side;
