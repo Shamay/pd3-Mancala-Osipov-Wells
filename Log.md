@@ -43,3 +43,11 @@
 - restructured classes to be less dependant on the Driver
 - sowing reworked
 - added visual pit count functionality
+
+6/14: Malcolm
+- fixed forfeit bug
+- fixed sowing bug
+- began working on the AI
+
+6/14: Shamay
+- restructed the class system to optimize performance
