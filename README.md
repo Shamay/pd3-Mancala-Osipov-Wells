@@ -1,10 +1,11 @@
 Shamay Osipov and Malcolm Wells (Period 3)
 
-We will be creating a workable Mancala game and incorporating AI algorithms.
+We will be creating a workable Oware game and incorporating AI algorithms.
 
 Instructions:
 - Open any of the .pde files and all of them will open in processing.
 - Run driver.pde through processing and enjoy!
+- Although instructions are included in the game, here is a link to official rules: http://en.wikipedia.org/wiki/Oware
 
 What Works:
 - two player game interface is fully functional
