@@ -51,3 +51,9 @@
 
 6/14: Shamay
 - restructed the class system to optimize performance
+
+6/15: Malcolm
+- finished AI work, compiles but not tested
+
+6/15: Shamay
+- added Menu and Instructions algorithms
