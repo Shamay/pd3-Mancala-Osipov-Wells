@@ -1,7 +1,14 @@
-PImage bg, bSeed, ySeed, pSeed, oSeed;
+final int stateWelcomeScreenDisplay=0;
+final int stateShowInstructions= 1;
+final int stateGame=2;
+final int stateGameOver=3;
+int stateOfProgram = stateWelcomeScreenDisplay;
+
+PImage bgMenu, bgGame, bgIns, bSeed, ySeed, pSeed, oSeed;
 PFont f; 
 Game instance;
 Rows rows;
+boolean AI;
 
 //saves properties of seeds
 ArrayList<Integer> xcors,ycors;
@@ -9,8 +16,9 @@ ArrayList<PImage> colors;
 
 void setup(){
   size(842, 550);
-
-  bg = loadImage("OwareBoard.jpg");
+  bgMenu = loadImage("Menu.png");
+  bgGame = loadImage("OwareBoard.jpg");
+  bgIns = loadImage("Instructions.jpg");
   bSeed = loadImage("blueSeed.png");
   ySeed = loadImage("yellowSeed.png");
   pSeed = loadImage("pinkSeed.png");
@@ -41,12 +49,52 @@ void setup(){
 }
 
 void draw() {
-  background(bg);
+  switch(stateOfProgram) {
+    case stateWelcomeScreenDisplay: 
+      stateWelcomeScreenDisplay();  
+      break;  
+    case stateShowInstructions: 
+      stateShowInstructions();  
+      break;  
+    case stateGame: 
+      stateGame();
+      break;    
+    case stateGameOver: 
+      stateGameOver(); 
+      break; 
+  }  
+}
+
+void mouseReleased(){
+  switch(stateOfProgram) {
+    case stateWelcomeScreenDisplay: 
+      stateWelcomeScreenDisplayMouse();  
+      break;  
+    case stateShowInstructions: 
+      stateShowInstructionsMouse();  
+      break;  
+    case stateGame: 
+      stateGameMouse();
+      break;    
+    case stateGameOver: 
+      stateGameOverMouse(); 
+      break; 
+  }  
+}
+
+private void stateWelcomeScreenDisplay(){
+ background(bgMenu);
+}
+private void stateShowInstructions(){
+ background(bgIns);
+}
+private void stateGame(){
+  background(bgGame);
   
   // winning mechanism
   //if(!checkGame())
   //    break;
-  
+ 
   int count = 0;
   for(int x = 1; x < 13;x++){
     Pit p = rows.getPit(x);
@@ -65,7 +113,7 @@ void draw() {
       count++;   
     }
   }
-    
+     
   textFont(f,16);                 
   fill(0);
   for(int x = 1; x < 7; x++){                            
@@ -77,11 +125,33 @@ void draw() {
   text("Player 2",50,40);
   text("Player 1",50,500);
   text("Score: " + instance.getPlayer2().getScore(),650,40);
-  text("Score: " + instance.getPlayer1().getScore(),650,500);
+  text("Score: " + instance.getPlayer1().getScore(),650,500);  
+}
+private void stateGameOver(){
+  
 }
 
-void mouseReleased(){
-  if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){    
+private void stateWelcomeScreenDisplayMouse(){
+if(mouseX > 290 && mouseX < 570){
+   if(mouseY > 253 && mouseY < 308){
+   //single player
+   boolean AI = true;   
+   stateOfProgram = stateGame; 
+   }else if(mouseY > 329 && mouseY < 380){
+   //two players 
+   boolean AI = false;    
+   stateOfProgram = stateGame; 
+   }else if(mouseY > 402 && mouseY < 453){
+   //instructions  
+   stateOfProgram = stateShowInstructions;
+   }
+}
+}
+private void stateShowInstructionsMouse(){
+  stateOfProgram = stateWelcomeScreenDisplay;
+}
+private void stateGameMouse(){
+if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){    
     if(mouseY > 280 && mouseY < 402){
       int pit = 1 + mouseX / 140;
      if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
@@ -96,7 +166,11 @@ void mouseReleased(){
        instance.nextTurn();
      }
     }
-  }
+  } 
 }
+private void stateGameOverMouse(){
+  
+}
+
 
 
