@@ -3,8 +3,8 @@ Shamay Osipov and Malcolm Wells (Period 3)
 We will be creating a workable Mancala game and incorporating AI algorithms.
 
 Instructions:
-1. Open any of the .pde files and all of them will open in processing.
-2. Run driver.pde through processing and enjoy!
+- Open any of the .pde files and all of them will open in processing.
+- Run driver.pde through processing and enjoy!
 
 What Works:
 - two player game interface is fully functional
