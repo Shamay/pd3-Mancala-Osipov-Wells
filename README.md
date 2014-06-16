@@ -1,6 +1,6 @@
 Shamay Osipov and Malcolm Wells (Period 3)
 
-We will be creating a workable Oware game and incorporating AI algorithms.
+Description: We will be creating a workable Oware game and incorporating AI algorithms.
 
 Instructions:
 - Open any of the .pde files and all of them will open in processing.
