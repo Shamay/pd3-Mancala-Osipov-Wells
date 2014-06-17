@@ -11,7 +11,15 @@ public class Game{
       rows = new Rows();
       turn = true;
     } 
-    
+    public Game(boolean AI){      
+      player1 = new Player(true);
+      if(AI)
+        player2 = new Opponent(false, instance);
+      else
+        player2 = new Player(false);
+      rows = new Rows();
+      turn = true;
+    } 
     public boolean validMove(int pit){
       if(turn)
         return pit < 7 && pit > 0;

@@ -52,6 +52,9 @@ public class Player{
       myWin = true;
   
   }
+  public void makeMove(){
+    
+  }
  
   
     

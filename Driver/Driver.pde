@@ -42,8 +42,10 @@ void setup(){
      colors.add(pSeed);
    } 
   }
-
-  instance = new Game();
+  if(AI)
+    instance = new Game(true);
+  else
+    instance = new Game(false);
   rows = instance.getRows();
   f = createFont("Arial",16,true); 
 }
@@ -135,11 +137,11 @@ private void stateWelcomeScreenDisplayMouse(){
 if(mouseX > 290 && mouseX < 570){
    if(mouseY > 253 && mouseY < 308){
    //single player
-   boolean AI = true;   
+   AI = true;   
    stateOfProgram = stateGame; 
    }else if(mouseY > 329 && mouseY < 380){
    //two players 
-   boolean AI = false;    
+   AI = false;    
    stateOfProgram = stateGame; 
    }else if(mouseY > 402 && mouseY < 453){
    //instructions  
@@ -157,6 +159,10 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
      if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
        instance.getCurrentPlayer().sow(rows.getPit(pit));
        instance.nextTurn();
+       if(AI){
+         println(AI);
+         instance.nextTurn();
+       } 
      }
     }
     if(mouseY > 140 && mouseY < 264){
@@ -164,9 +170,14 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
      if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
        instance.getCurrentPlayer().sow(rows.getPit(pit));
        instance.nextTurn();
+       if(AI){
+         println(AI);
+         ((Opponent)instance.getPlayer2()).makeMove();
+         instance.nextTurn();
+       } 
      }
     }
-  } 
+  }
 }
 private void stateGameOverMouse(){
   

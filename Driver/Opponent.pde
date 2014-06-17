@@ -9,6 +9,7 @@ public class Opponent extends Player{
     this.game = game;
   }
   public void makeMove(){
+    println("making move");
     int[][] results = new int[rows.LENGTH][rows.LENGTH];
     for(int r = 0;r<results.length;r++){
       for(int c = 0;c<results.length;c++){
