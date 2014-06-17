@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-// overlaps player and rows
+// Contains players and rows, organizes their interaction
 public class Game{
     
     private Player player1, player2;
@@ -14,15 +14,17 @@ public class Game{
       turn = true;
     } 
     public Game(Player player1, Player player2, Rows rows, boolean turn){      
+      //helps create new Games for cloning
       this.player1 = player1;
       this.player2 = player2;
       this.rows = rows;
       this.turn = turn;
     } 
-    public Game clone(){
+    public Game clone(){ ////Duplicates game for AI purposes
       return new Game(player1.clone(), player2.clone(), rows.clone(), turn);
     }
     public boolean validMove(int pit){
+      //Determines whether a given move may be made at this time
       if(turn)
         return pit < 7 && pit > 0;
       else
@@ -30,6 +32,7 @@ public class Game{
     }
     
     public boolean validMovesLeft(){
+      //Helper for game-over conditions
       if(turn){
           for(int x = 1; x < 7; x++){
             if(getRows().getPit(x).getSeeds() > 0)
@@ -56,7 +59,7 @@ public class Game{
       return player2;
     }
     
-    // are these needed?
+    // Token accessors, mutators
     public void setPlayer1(Player player1){
       this.player1 = player1;
     }

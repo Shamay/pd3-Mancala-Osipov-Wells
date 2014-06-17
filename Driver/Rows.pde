@@ -1,13 +1,13 @@
 import java.util.*;
 import java.io.*;
-// Container for the linked-list
+// A linked list of Pits, constituting the gameboard.
 
 public class Rows{
     
-    final int LENGTH = 6;
-    Pit L,R;
+    final int LENGTH = 6; //Number of pits per row, in general
+    Pit L,R; //First pits in each row
 
-    public Rows(){
+    public Rows(){ // Creates a circular, doubly linked list with two pointers.
         L = new Pit(4,true,1);
         R = L;
         for(int x = 0;x<LENGTH;x++){
@@ -34,7 +34,7 @@ public class Rows{
       R = R.getNext();
       }
     }
-    public Rows clone(){
+    public Rows clone(){ //Duplicates rows for AI purposes
       Rows ans = new Rows();
       for(int x=0;x<LENGTH*2;x++){
         ans.getPit(x).setSeeds(getPit(x).getSeeds());

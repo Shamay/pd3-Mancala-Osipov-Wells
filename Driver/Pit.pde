@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
-//  DOUBLE-LINKED LIST
-// they now have associated numbers to identify itself
+//  Nodes of a doubly linked list
+// they now have associated numbers to identify themselves
 public class Pit{
     int seeds,num;
     Pit next,prev;    
@@ -27,7 +27,7 @@ public class Pit{
     public int getSeeds(){
       return seeds;
     }
-    public int empty(){
+    public int empty(){ //Helper for sowing
       int temp = seeds;
       seeds = 0;
       return temp;
