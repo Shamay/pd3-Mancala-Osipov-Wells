@@ -2,17 +2,33 @@ final int stateWelcomeScreenDisplay=0;
 final int stateShowInstructions= 1;
 final int stateGame=2;
 final int stateGameOver=3;
+final int stateShowLevels = 4;
 int stateOfProgram = stateWelcomeScreenDisplay;
 
-PImage bgMenu, bgGame, bgIns, bgGameOver, bSeed, ySeed, pSeed, oSeed;
+PImage bgMenu, bgGame, bgIns, bgGameOver, bgLevels, bSeed, ySeed, pSeed, oSeed;
 PFont f,f2; 
 Game instance;
 Rows rows;
-boolean AI;
+boolean AI,difficulty; //true for hard, false for easy
 
 //saves properties of seeds
 ArrayList<Integer> xcors,ycors;
 ArrayList<PImage> colors;
+
+boolean AIturn;
+private void AI(){
+    if(difficulty){
+      println(AI);
+      instance.getPlayer2().makeMove(instance);
+      instance.nextTurn();           
+    }else{             
+      delay(300);
+      int randomPit = (int) random(6) + 7;
+      instance.getPlayer2().sow(rows.getPit(randomPit));
+      instance.nextTurn();             
+    }
+  AIturn = false;  
+}
 
 void setup(){
   size(842, 550);
@@ -20,6 +36,7 @@ void setup(){
   bgGame = loadImage("OwareBoard.png");
   bgIns = loadImage("Instructions.jpg");
   bgGameOver = loadImage("GameOver.jpg");
+  bgLevels = loadImage("AI.jpg");
   bSeed = loadImage("blueSeed.png");
   ySeed = loadImage("yellowSeed.png");
   pSeed = loadImage("pinkSeed.png");
@@ -59,9 +76,14 @@ void draw() {
       break;  
     case stateGame: 
       stateGame();
+      if(AIturn)
+       AI();
       break;    
     case stateGameOver: 
       stateGameOver(); 
+      break;
+    case stateShowLevels:
+      stateShowLevels();
       break; 
   }  
 }
@@ -79,12 +101,18 @@ void mouseReleased(){
       break;    
     case stateGameOver: 
       stateGameOverMouse(); 
+      break;
+    case stateShowLevels:
+      stateShowLevelsMouse();
       break; 
   }  
 }
 
 private void stateWelcomeScreenDisplay(){
  background(bgMenu);
+}
+private void stateShowLevels(){
+ background(bgLevels);
 }
 private void stateShowInstructions(){
  background(bgIns);
@@ -136,12 +164,34 @@ private void stateGameOver(){
   background(bgGameOver);
   textFont(f,32);                 
   fill(255);
-  if(AI){    
-  text("Player's Score: " + instance.getPlayer1().getScore(),280,300);
-  text("Computer's Score: " + instance.getPlayer2().getScore(),280,380);
+  if(AI){
+  if(instance.player1.myWin()){
+    text("Player Wins",300,300);
+  }else if(instance.player2.myWin()){
+    text("Computer Wins",300,300);
+  }else if(!instance.validMovesLeft()){
+    if(instance.getPlayer1().getScore() > instance.getPlayer2().getScore()){
+      text("Player Wins",300,300);
+    }else{
+      text("Computer Wins",300,300);
+    }
+  }    
+  text("Player's Score: " + instance.getPlayer1().getScore(),280,350);
+  text("Computer's Score: " + instance.getPlayer2().getScore(),280,400);
   }else{
-  text("Player 1's Score: " + instance.getPlayer1().getScore(),280,300);
-  text("Player 2's Score: " + instance.getPlayer2().getScore(),280,380); 
+  if(instance.player1.myWin()){
+    text("Player 1 Wins",300,300);
+  }else if(instance.player2.myWin()){
+    text("Player 2 Wins",300,300);
+  }else if(!instance.validMovesLeft()){
+    if(instance.getPlayer1().getScore() > instance.getPlayer2().getScore()){
+      text("Player 1 Wins",300,300);
+    }else{
+      text("Player 2 Wins",300,300);
+    }
+  }
+  text("Player 1's Score: " + instance.getPlayer1().getScore(),280,350);
+  text("Player 2's Score: " + instance.getPlayer2().getScore(),280,400); 
   }
 }
 
@@ -150,7 +200,7 @@ if(mouseX > 290 && mouseX < 570){
    if(mouseY > 253 && mouseY < 308){
    //single player
    AI = true;   
-   stateOfProgram = stateGame; 
+   stateOfProgram = stateShowLevels; 
    }else if(mouseY > 329 && mouseY < 380){
    //two players 
    AI = false;    
@@ -167,34 +217,40 @@ private void stateShowInstructionsMouse(){
 private void stateGameMouse(){
 if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){    
     if(mouseY > 280 && mouseY < 402){
-      int pit = 1 + mouseX / 140;
+     int pit = 1 + mouseX / 140;
      if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
-       instance.getCurrentPlayer().sow(rows.getPit(pit));
-       instance.nextTurn();
-       if(AI){
-         println(AI);
-         instance.getPlayer2().makeMove(instance);
-         instance.nextTurn();
-       } 
+       instance.getPlayer1().sow(rows.getPit(pit));
+       instance.nextTurn();       
+       AIturn = AI; 
      }
     }
     if(mouseY > 140 && mouseY < 264){
      int pit = 12 - (mouseX / 140);
-     if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
-       instance.getCurrentPlayer().sow(rows.getPit(pit));
-       instance.nextTurn();
-       if(AI){
-         println(AI);
-         instance.getPlayer2().makeMove(instance);
-         instance.nextTurn();
-       } 
+     if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){       
+        instance.getCurrentPlayer().sow(rows.getPit(pit));
+        instance.nextTurn();      
      }
     }
   }
 }
+
+
+
 private void stateGameOverMouse(){
   stateOfProgram = stateWelcomeScreenDisplay;
 }
-
+private void stateShowLevelsMouse(){
+  if(mouseY > 300 && mouseY < 390){
+   if(mouseX > 145 && mouseX < 314){
+   //EASY
+   difficulty = false;  
+   stateOfProgram = stateGame; 
+   }else if(mouseX > 538 && mouseX < 708){
+   //HARD 
+   difficulty = true;    
+   stateOfProgram = stateGame; 
+   }
+  }
+}
 
 

@@ -24,6 +24,21 @@ public class Game{
         return pit < 13 && pit > 6;
     }
     
+    public boolean validMovesLeft(){
+      if(turn){
+          for(int x = 1; x < 7; x++){
+            if(getRows().getPit(x).getSeeds() > 0)
+              return true;
+          }
+      }else{
+          for(int x = 7; x < 13; x++){
+             if(getRows().getPit(x).getSeeds() > 0)
+              return true;
+          }
+      }
+      return false;
+    }
+    
     public Player getPlayer1(){
       return player1;
     }
@@ -64,6 +79,8 @@ public class Game{
        return false;
      }else if(player2.myWin()){
        return false;
+     }else if(!validMovesLeft()){
+       return false; 
      }
      return true;
    }
