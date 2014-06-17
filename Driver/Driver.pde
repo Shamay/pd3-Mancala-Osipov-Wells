@@ -244,6 +244,8 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
 }
 
 private void stateGameOverMouse(){
+  instance = new Game();
+  rows = instance.getRows();
   stateOfProgram = stateWelcomeScreenDisplay;
   redraw();
 }
