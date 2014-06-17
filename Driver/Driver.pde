@@ -7,7 +7,7 @@ final int stateGameOver=3;
 final int stateShowLevels = 4;
 int stateOfProgram = stateWelcomeScreenDisplay;
 
-PImage bgMenu, bgGame, bgIns, bgGameOver, bgLevels, bSeed, ySeed, pSeed, oSeed;
+PImage bgMenu, bgGame, bgIns, bgGameOver, bgLevels, seed;
 PFont f,f2; 
 Game instance;
 Rows rows;
@@ -25,28 +25,13 @@ void setup(){
   bgIns = loadImage("Instructions.jpg");
   bgGameOver = loadImage("GameOver.jpg");
   bgLevels = loadImage("AI.jpg");
-  bSeed = loadImage("blueSeed.png");
-  ySeed = loadImage("yellowSeed.png");
-  pSeed = loadImage("pinkSeed.png");
-  oSeed = loadImage("orangeSeed.png");
+  seed = loadImage("yellowSeed.png");
 
   xcors = new ArrayList<Integer>();
   ycors = new ArrayList<Integer>();
   for(int x = 0; x < 48; x++){
     xcors.add((int) random(62));
     ycors.add((int) random(55));
-  }
-  colors = new ArrayList<PImage>();
-  for(int x = 0; x < 48; x++){
-    if((int) random(4) == 0){
-     colors.add(bSeed); 
-   }else if((int) random(3) == 0){
-     colors.add(ySeed);
-   }else if((int) random(2) == 0){
-     colors.add(oSeed);
-   }else{
-     colors.add(pSeed);
-   } 
   }
   instance = new Game();
   rows = instance.getRows();
@@ -120,7 +105,7 @@ private void stateGame(){
          xcor = ((num - 7) * -140) + 721 + xcors.get(count);
          ycor = 166 + ycors.get(count);
       }
-      image(colors.get(count),xcor,ycor);
+      image(seed,xcor,ycor);
       count++;   
     }
   }
