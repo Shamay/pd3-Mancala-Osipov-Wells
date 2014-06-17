@@ -17,22 +17,8 @@ boolean AI,difficulty; //true for hard, false for easy
 ArrayList<Integer> xcors,ycors;
 ArrayList<PImage> colors;
 
-boolean AIturn;
-private void AI(){
-    if(difficulty){
-      println(AI);
-      instance.getPlayer2().makeMove(instance);
-      instance.nextTurn();           
-    }else{             
-      delay(300);
-      int randomPit = (int) random(6) + 7;
-      instance.getPlayer2().sow(rows.getPit(randomPit));
-      instance.nextTurn();             
-    }
-  AIturn = false;  
-}
-
 void setup(){
+  noLoop();
   size(842, 550);
   bgMenu = loadImage("Menu.png");
   bgGame = loadImage("OwareBoard.png");
@@ -68,7 +54,7 @@ void setup(){
   f2 = createFont("Arial Bold",16,true);
 }
 
-void draw() {
+void draw() { 
   switch(stateOfProgram) {
     case stateWelcomeScreenDisplay: 
       stateWelcomeScreenDisplay();  
@@ -78,8 +64,6 @@ void draw() {
       break;  
     case stateGame: 
       stateGame();
-      if(AIturn)
-       AI();
       break;    
     case stateGameOver: 
       stateGameOver(); 
@@ -87,7 +71,7 @@ void draw() {
     case stateShowLevels:
       stateShowLevels();
       break; 
-  }  
+  } 
 }
 
 void mouseReleased(){
@@ -99,7 +83,7 @@ void mouseReleased(){
       stateShowInstructionsMouse();  
       break;  
     case stateGame: 
-      stateGameMouse();
+      stateGameMouse();      
       break;    
     case stateGameOver: 
       stateGameOverMouse(); 
@@ -108,6 +92,7 @@ void mouseReleased(){
       stateShowLevelsMouse();
       break; 
   }  
+  
 }
 
 private void stateWelcomeScreenDisplay(){
@@ -119,13 +104,8 @@ private void stateShowLevels(){
 private void stateShowInstructions(){
  background(bgIns);
 }
-private void stateGame(){
+private void stateGame(){  
   background(bgGame);
-  
-  // winning mechanism
-  if(!instance.checkGame())
-      stateOfProgram = stateGameOver;
-  else{
   int count = 0;
   for(int x = 1; x < 13;x++){
     Pit p = rows.getPit(x);
@@ -160,7 +140,7 @@ private void stateGame(){
   text("Player 1",50,515);
   text("Score: " + instance.getPlayer2().getScore(),650,55);
   text("Score: " + instance.getPlayer1().getScore(),650,515); 
-  } 
+  
 }
 private void stateGameOver(){
   background(bgGameOver);
@@ -201,6 +181,7 @@ private void stateWelcomeScreenDisplayMouse(){
 if(mouseX > 290 && mouseX < 570){
    if(mouseY > 253 && mouseY < 308){
    //single player
+   println("1");
    AI = true;   
    stateOfProgram = stateShowLevels; 
    }else if(mouseY > 329 && mouseY < 380){
@@ -212,35 +193,65 @@ if(mouseX > 290 && mouseX < 570){
    stateOfProgram = stateShowInstructions;
    }
 }
+redraw();
 }
 private void stateShowInstructionsMouse(){
   stateOfProgram = stateWelcomeScreenDisplay;
+  redraw();
 }
 private void stateGameMouse(){
+
 if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){    
     if(mouseY > 280 && mouseY < 402){
      int pit = 1 + mouseX / 140;
      if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){
        instance.getPlayer1().sow(rows.getPit(pit));
-       instance.nextTurn();       
-       AIturn = AI; 
+       instance.nextTurn(); 
+       if(!instance.checkGame()){
+          stateOfProgram = stateGameOver;     
+       }
+       redraw();      
+       if(AI){
+        if(difficulty){
+          println(AI);
+          instance.getPlayer2().makeMove(instance);
+          instance.nextTurn();           
+        }else{  
+          delay(1000);          
+          int randomPit = (int) random(6) + 7;
+          while(rows.getPit(randomPit).getSeeds() == 0){
+             randomPit = (int) random(6) + 7;
+          } 
+          instance.getPlayer2().sow(rows.getPit(randomPit));
+          instance.nextTurn();           
+        } 
+       }
      }
     }
     if(mouseY > 140 && mouseY < 264){
      int pit = 12 - (mouseX / 140);
      if(instance.validMove(pit) && rows.getPit(pit).getSeeds()>0){       
         instance.getCurrentPlayer().sow(rows.getPit(pit));
-        instance.nextTurn();      
+        instance.nextTurn();             
      }
     }
   }
+  
+  // winning mechanism
+  if(!instance.checkGame()){
+      stateOfProgram = stateGameOver;     
+  }
+  redraw();
+  
 }
-
-
 
 private void stateGameOverMouse(){
+  instance = new Game();
+  rows = instance.getRows();
   stateOfProgram = stateWelcomeScreenDisplay;
+  redraw();
 }
+
 private void stateShowLevelsMouse(){
   if(mouseY > 300 && mouseY < 390){
    if(mouseX > 145 && mouseX < 314){
@@ -253,6 +264,7 @@ private void stateShowLevelsMouse(){
    stateOfProgram = stateGame; 
    }
   }
+  redraw();
 }
 
 
