@@ -5,7 +5,7 @@ final int stateGameOver=3;
 int stateOfProgram = stateWelcomeScreenDisplay;
 
 PImage bgMenu, bgGame, bgIns, bSeed, ySeed, pSeed, oSeed;
-PFont f; 
+PFont f,f2; 
 Game instance;
 Rows rows;
 boolean AI;
@@ -17,7 +17,7 @@ ArrayList<PImage> colors;
 void setup(){
   size(842, 550);
   bgMenu = loadImage("Menu.png");
-  bgGame = loadImage("OwareBoard.jpg");
+  bgGame = loadImage("OwareBoard.png");
   bgIns = loadImage("Instructions.jpg");
   bSeed = loadImage("blueSeed.png");
   ySeed = loadImage("yellowSeed.png");
@@ -48,6 +48,7 @@ void setup(){
     instance = new Game(false);
   rows = instance.getRows();
   f = createFont("Arial",16,true); 
+  f2 = createFont("Arial Bold",16,true);
 }
 
 void draw() {
@@ -106,28 +107,31 @@ private void stateGame(){
       float xcor,ycor;
       if(num <= 6){
          xcor = ((num - 1) * 140) + 21 + xcors.get(count);
-         ycor = 300 + ycors.get(count);
+         ycor = 306 + ycors.get(count);
       }else{
          xcor = ((num - 7) * -140) + 721 + xcors.get(count);
-         ycor = 160 + ycors.get(count);
+         ycor = 166 + ycors.get(count);
       }
       image(colors.get(count),xcor,ycor);
       count++;   
     }
   }
      
-  textFont(f,16);                 
+  textFont(f,24);                 
   fill(0);
   for(int x = 1; x < 7; x++){                            
-    text(""+rows.getPit(x).getSeeds(), 65 + (140*(x-1)),435);  
+    text(""+rows.getPit(x).getSeeds(), 65 + (140*(x-1)),441);  
   }
   for(int x = 7; x < 13; x++){
-    text(""+rows.getPit(x).getSeeds(), 765 - (140*(x-7)),115);
+    text(""+rows.getPit(x).getSeeds(), 765 - (140*(x-7)),127);
   }
-  text("Player 2",50,40);
-  text("Player 1",50,500);
-  text("Score: " + instance.getPlayer2().getScore(),650,40);
-  text("Score: " + instance.getPlayer1().getScore(),650,500);  
+  
+  textFont(f2,36);
+  fill(255);
+  text("Player 2",50,55);
+  text("Player 1",50,515);
+  text("Score: " + instance.getPlayer2().getScore(),650,55);
+  text("Score: " + instance.getPlayer1().getScore(),650,515);  
 }
 private void stateGameOver(){
   
