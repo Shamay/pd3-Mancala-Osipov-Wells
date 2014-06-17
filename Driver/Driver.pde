@@ -181,7 +181,6 @@ private void stateWelcomeScreenDisplayMouse(){
 if(mouseX > 290 && mouseX < 570){
    if(mouseY > 253 && mouseY < 308){
    //single player
-   println("1");
    AI = true;   
    stateOfProgram = stateShowLevels; 
    }else if(mouseY > 329 && mouseY < 380){
@@ -213,7 +212,6 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
        redraw();      
        if(AI){
         if(difficulty){
-          println(AI);
           instance.getPlayer2().makeMove(instance);
           instance.nextTurn();           
         }else{  

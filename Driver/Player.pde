@@ -62,23 +62,24 @@ public class Player{
   
   }
   public void makeMove(Game game){
-    println(game.getRows().getL(0).getSeeds());
-    println("Making Move");
     int[][] results = new int[rows.LENGTH][rows.LENGTH];
     for(int r = 0;r<results.length;r++){
-      for(int c = 0;c<results.length;c++){
-        Game temp = game.clone();
-        println("creating game");
-        delay(50);
-        if(temp.turn){
-          temp.getPlayer1().sow(temp.getRows().getL(r));
-          temp.getPlayer2().sow(temp.getRows().getR(c));
-          results[r][c] = temp.getPlayer1().getScore()-temp.getPlayer2().getScore();
-        } else {
-          println(game.getRows().getL(0).getSeeds());
-          temp.getPlayer2().sow(temp.getRows().getR(r));
-          temp.getPlayer1().sow(temp.getRows().getL(c));
-          results[r][c] = temp.getPlayer2().getScore()-temp.getPlayer1().getScore();
+      if(rows.getR(r).getSeeds() == 0){
+        for(int i : results[r])
+          i = -100;
+      } else {
+        for(int c = 0;c<results.length;c++){
+          Game temp = game.clone();
+          delay(50);
+          if(temp.turn){
+            temp.getPlayer1().sow(temp.getRows().getL(r));
+            temp.getPlayer2().sow(temp.getRows().getR(c));
+            results[r][c] = temp.getPlayer1().getScore()-temp.getPlayer2().getScore();
+          } else {
+            temp.getPlayer2().sow(temp.getRows().getR(r));
+            temp.getPlayer1().sow(temp.getRows().getL(c));
+            results[r][c] = temp.getPlayer2().getScore()-temp.getPlayer1().getScore();
+          }
         }
       }
     }
@@ -98,7 +99,7 @@ public class Player{
         if(i < min)
           min = i;
       }
-      wcNetGain[r] = max-min;
+      wcNetGain[r] = min;
     }
     int ans = 0;
     int max = wcNetGain[0];
