@@ -1,11 +1,6 @@
 Shamay Osipov and Malcolm Wells (Period 3)
 
-Description: We will be creating a functional game of Oware. It will include both two p\
-layer and single player (AI) modes. The AI will be subdivided into easy mode and hard m\
-ode, with increasing levels of complexity in the algorithms used. We will be using a do\
-uble linked list with two root nodes (one for each player), to hold the circle of "pits\
-" central to the game. Using mouse controls, the user can "sow" the pits (explained in \
-the instructions) and begin to score points.
+Description: We will be creating a functional game of Oware. It will include both two player and single player (AI) modes. The AI will be subdivided into easy mode and hard mode, with increasing levels of complexity in the algorithms used. We will be using a double linked list with two root nodes (one for each player), to hold the circle of "pits" central to the game. Using mouse controls, the user can "sow" the pits (explained in the instructions) and begin to score points.
 
 Instructions:
 - Open any of the .pde files and all of them will open in processing.
