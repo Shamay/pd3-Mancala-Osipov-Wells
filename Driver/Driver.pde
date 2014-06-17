@@ -1,23 +1,31 @@
+// DRIVER CLASS
+// Displays all visuals and animations, handles mouse events, and ties togethere the other classes
+
 import java.util.*;
 import java.io.*;
-final int stateWelcomeScreenDisplay=0;
-final int stateShowInstructions= 1;
-final int stateGame=2;
-final int stateGameOver=3;
-final int stateShowLevels = 4;
-int stateOfProgram = stateWelcomeScreenDisplay;
 
-PImage bgMenu, bgGame, bgIns, bgGameOver, bgLevels, seed;
-PFont f,f2; 
-Game instance;
-Rows rows;
-boolean AI,difficulty; //true for hard, false for easy
+// Different display screens for different parts of the program
+private final int stateWelcomeScreenDisplay=0;
+private final int stateShowInstructions= 1;
+private final int stateGame=2;
+private final int stateGameOver=3;
+private final int stateShowLevels = 4;
+private int stateOfProgram = stateWelcomeScreenDisplay;
 
-//saves properties of seeds
-ArrayList<Integer> xcors,ycors;
-ArrayList<PImage> colors;
+private PImage bgMenu, bgGame, bgIns, bgGameOver, bgLevels, seed;
+private PFont f,f2; 
 
-void setup(){
+private Game instance;
+private Rows rows;
+
+private boolean AI; // true for single player, false for two player
+private boolean difficulty; //true for hard, false for easy
+
+//saves coordinates of seeds
+private ArrayList<Integer> xcors,ycors;
+private ArrayList<PImage> colors;
+
+public void setup(){
   noLoop();
   size(842, 550);
   bgMenu = loadImage("Menu.png");
@@ -27,19 +35,23 @@ void setup(){
   bgLevels = loadImage("AI.jpg");
   seed = loadImage("yellowSeed.png");
 
+  //randomly generates the coordinates of seeds
   xcors = new ArrayList<Integer>();
   ycors = new ArrayList<Integer>();
   for(int x = 0; x < 48; x++){
     xcors.add((int) random(62));
     ycors.add((int) random(55));
   }
+  //instantiates all the classes through the Game class
   instance = new Game();
   rows = instance.getRows();
+  
   f = createFont("Arial",16,true); 
   f2 = createFont("Arial Bold",16,true);
 }
 
-void draw() { 
+public void draw() { 
+  // displays a different display screen depending on stateOfProgram var
   switch(stateOfProgram) {
     case stateWelcomeScreenDisplay: 
       stateWelcomeScreenDisplay();  
@@ -59,7 +71,8 @@ void draw() {
   } 
 }
 
-void mouseReleased(){
+public void mouseReleased(){
+  // allows for different mouse functionality depending on current display screen
   switch(stateOfProgram) {
     case stateWelcomeScreenDisplay: 
       stateWelcomeScreenDisplayMouse();  
@@ -80,6 +93,7 @@ void mouseReleased(){
   
 }
 
+// SCREEN DISPLAY FUNCTIONS
 private void stateWelcomeScreenDisplay(){
  background(bgMenu);
 }
@@ -121,7 +135,10 @@ private void stateGame(){
   
   textFont(f2,36);
   fill(255);
-  text("Player 2",50,55);
+  if(AI)
+    text("Computer",50,55);
+  else
+    text("Player 2",50,55);
   text("Player 1",50,515);
   text("Score: " + instance.getPlayer2().getScore(),650,55);
   text("Score: " + instance.getPlayer1().getScore(),650,515); 
@@ -162,6 +179,7 @@ private void stateGameOver(){
   }
 }
 
+// ASSOCIATED MOUSE FUNCTIONS
 private void stateWelcomeScreenDisplayMouse(){
 if(mouseX > 290 && mouseX < 570){
    if(mouseY > 253 && mouseY < 308){
@@ -238,11 +256,11 @@ private void stateGameOverMouse(){
 private void stateShowLevelsMouse(){
   if(mouseY > 300 && mouseY < 390){
    if(mouseX > 145 && mouseX < 314){
-   //EASY
+   //EASY MODE
    difficulty = false;  
    stateOfProgram = stateGame; 
    }else if(mouseX > 538 && mouseX < 708){
-   //HARD 
+   //HARD MODE
    difficulty = true;    
    stateOfProgram = stateGame; 
    }

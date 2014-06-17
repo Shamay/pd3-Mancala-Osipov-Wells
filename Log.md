@@ -57,3 +57,10 @@
 
 6/15: Shamay
 - added Menu and Instructions algorithms
+
+6/16: Shamay and Malcolm
+- added easy and hard mode for AI
+- added a delay between player and AI move
+- added a reset function after the game has ended
+- new check for tie game
+- AI revisions using cloning features
