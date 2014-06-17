@@ -1,3 +1,5 @@
+import java.util.*;
+import java.io.*;
 // Container for the linked-list
 
 public class Rows{
@@ -31,6 +33,13 @@ public class Rows{
       for(int x=0;x<LENGTH;x++){
       R = R.getNext();
       }
+    }
+    public Rows clone(){
+      Rows ans = new Rows();
+      for(int x=0;x<LENGTH*2;x++){
+        ans.getPit(x).setSeeds(getPit(x).getSeeds());
+      }
+      return ans;
     }
     
     public Pit getL(int i){

@@ -1,3 +1,5 @@
+import java.util.*;
+import java.io.*;
 //  DOUBLE-LINKED LIST
 // they now have associated numbers to identify itself
 public class Pit{
@@ -19,7 +21,9 @@ public class Pit{
     public void setNum(int num){
       this.num = num;   
     }
-    
+    public void setSeeds(int seeds){
+      this.seeds = seeds;
+    }
     public int getSeeds(){
       return seeds;
     }

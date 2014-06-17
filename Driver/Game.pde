@@ -1,3 +1,5 @@
+import java.util.*;
+import java.io.*;
 // overlaps player and rows
 public class Game{
     
@@ -17,6 +19,9 @@ public class Game{
       this.rows = rows;
       this.turn = turn;
     } 
+    public Game clone(){
+      return new Game(player1.clone(), player2.clone(), rows.clone(), turn);
+    }
     public boolean validMove(int pit){
       if(turn)
         return pit < 7 && pit > 0;

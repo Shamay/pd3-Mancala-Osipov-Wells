@@ -1,3 +1,5 @@
+import java.util.*;
+import java.io.*;
 public class Player{
     private int score;
     private boolean side; //true = L, false = R
@@ -10,6 +12,13 @@ public class Player{
     public Player(boolean side){
       score=0;
       this.side = side;
+    }
+    public Player(boolean side, int score){
+      this.score=score;
+      this.side = side;
+    }
+    public Player clone(){
+      return new Player(side, score);
     }
     
     public boolean getSide(){
@@ -53,18 +62,20 @@ public class Player{
   
   }
   public void makeMove(Game game){
+    println(game.getRows().getL(0).getSeeds());
     println("Making Move");
     int[][] results = new int[rows.LENGTH][rows.LENGTH];
     for(int r = 0;r<results.length;r++){
       for(int c = 0;c<results.length;c++){
-        Game temp = new Game(game.getPlayer1(), game.getPlayer2(), game.getRows(), game.getTurn());
+        Game temp = game.clone();
         println("creating game");
-        delay(500);
+        delay(50);
         if(temp.turn){
           temp.getPlayer1().sow(temp.getRows().getL(r));
           temp.getPlayer2().sow(temp.getRows().getR(c));
           results[r][c] = temp.getPlayer1().getScore()-temp.getPlayer2().getScore();
         } else {
+          println(game.getRows().getL(0).getSeeds());
           temp.getPlayer2().sow(temp.getRows().getR(r));
           temp.getPlayer1().sow(temp.getRows().getL(c));
           results[r][c] = temp.getPlayer2().getScore()-temp.getPlayer1().getScore();
