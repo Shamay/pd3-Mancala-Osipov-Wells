@@ -11,14 +11,11 @@ public class Game{
       rows = new Rows();
       turn = true;
     } 
-    public Game(boolean AI){      
-      player1 = new Player(true);
-      if(AI)
-        player2 = new Opponent(false, instance);
-      else
-        player2 = new Player(false);
-      rows = new Rows();
-      turn = true;
+    public Game(Player player1, Player player2, Rows rows, boolean turn){      
+      this.player1 = player1;
+      this.player2 = player2;
+      this.rows = rows;
+      this.turn = turn;
     } 
     public boolean validMove(int pit){
       if(turn)
@@ -58,6 +55,9 @@ public class Game{
    public void nextTurn(){
       turn=!turn;
    } 
+   public boolean getTurn(){
+     return turn;
+   }
    
    public boolean checkGame(){ //  true = still in progress
      if(player1.myWin()){

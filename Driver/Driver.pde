@@ -42,10 +42,7 @@ void setup(){
      colors.add(pSeed);
    } 
   }
-  if(AI)
-    instance = new Game(true);
-  else
-    instance = new Game(false);
+  instance = new Game();
   rows = instance.getRows();
   f = createFont("Arial",16,true); 
 }
@@ -161,6 +158,7 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
        instance.nextTurn();
        if(AI){
          println(AI);
+         instance.getPlayer2().makeMove(instance);
          instance.nextTurn();
        } 
      }
@@ -172,7 +170,7 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
        instance.nextTurn();
        if(AI){
          println(AI);
-         ((Opponent)instance.getPlayer2()).makeMove();
+         instance.getPlayer2().makeMove(instance);
          instance.nextTurn();
        } 
      }
