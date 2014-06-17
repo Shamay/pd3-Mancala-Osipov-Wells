@@ -4,7 +4,7 @@ final int stateGame=2;
 final int stateGameOver=3;
 int stateOfProgram = stateWelcomeScreenDisplay;
 
-PImage bgMenu, bgGame, bgIns, gbGameOver, bSeed, ySeed, pSeed, oSeed;
+PImage bgMenu, bgGame, bgIns, bgGameOver, bSeed, ySeed, pSeed, oSeed;
 PFont f,f2; 
 Game instance;
 Rows rows;
@@ -93,9 +93,9 @@ private void stateGame(){
   background(bgGame);
   
   // winning mechanism
-  //if(!checkGame())
-  //    break;
- 
+  if(!instance.checkGame())
+      stateOfProgram = stateGameOver;
+  else{
   int count = 0;
   for(int x = 1; x < 13;x++){
     Pit p = rows.getPit(x);
@@ -129,10 +129,20 @@ private void stateGame(){
   text("Player 2",50,55);
   text("Player 1",50,515);
   text("Score: " + instance.getPlayer2().getScore(),650,55);
-  text("Score: " + instance.getPlayer1().getScore(),650,515);  
+  text("Score: " + instance.getPlayer1().getScore(),650,515); 
+  } 
 }
 private void stateGameOver(){
   background(bgGameOver);
+  textFont(f,32);                 
+  fill(255);
+  if(AI){    
+  text("Player's Score: " + instance.getPlayer1().getScore(),280,300);
+  text("Computer's Score: " + instance.getPlayer2().getScore(),280,380);
+  }else{
+  text("Player 1's Score: " + instance.getPlayer1().getScore(),280,300);
+  text("Player 2's Score: " + instance.getPlayer2().getScore(),280,380); 
+  }
 }
 
 private void stateWelcomeScreenDisplayMouse(){
@@ -183,7 +193,7 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
   }
 }
 private void stateGameOverMouse(){
-  stateOfProgram = stateGameOver;
+  stateOfProgram = stateWelcomeScreenDisplay;
 }
 
 
