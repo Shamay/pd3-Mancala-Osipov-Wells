@@ -4,7 +4,7 @@ final int stateGame=2;
 final int stateGameOver=3;
 int stateOfProgram = stateWelcomeScreenDisplay;
 
-PImage bgMenu, bgGame, bgIns, bSeed, ySeed, pSeed, oSeed;
+PImage bgMenu, bgGame, bgIns, gbGameOver, bSeed, ySeed, pSeed, oSeed;
 PFont f,f2; 
 Game instance;
 Rows rows;
@@ -19,6 +19,7 @@ void setup(){
   bgMenu = loadImage("Menu.png");
   bgGame = loadImage("OwareBoard.png");
   bgIns = loadImage("Instructions.jpg");
+  bgGameOver = loadImage("GameOver.jpg");
   bSeed = loadImage("blueSeed.png");
   ySeed = loadImage("yellowSeed.png");
   pSeed = loadImage("pinkSeed.png");
@@ -134,7 +135,7 @@ private void stateGame(){
   text("Score: " + instance.getPlayer1().getScore(),650,515);  
 }
 private void stateGameOver(){
-  
+  background(bgGameOver);
 }
 
 private void stateWelcomeScreenDisplayMouse(){
@@ -184,7 +185,7 @@ if((mouseX % 140) > 5 && (mouseX % 140) < 135 ){
   }
 }
 private void stateGameOverMouse(){
-  
+  stateOfProgram = stateGameOver;
 }
 
 
